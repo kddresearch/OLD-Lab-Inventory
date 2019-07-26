@@ -9,7 +9,6 @@ class Item(models.Model):
 
 class Vendor(models.Model):
     description = models.CharField(max_length=200)
-    
 
 class Order(models.Model):
     reorder = models.IntegerField()

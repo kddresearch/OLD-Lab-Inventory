@@ -19,4 +19,4 @@ You can also install django packages in the same way
 
 live version of this repo will be temporarily kept on 
 
-www.happystep.pythonanywhere.com
+happystep.pythonanywhere.com

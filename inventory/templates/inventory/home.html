@@ -1,9 +1,39 @@
+{% extends 'inventory/base.html' %}
+{% load static %}
+{% block content %}
 <html>
-    <head>
-        <title>KDD Inventory</title>
-    </head>
-    <body>
-        <p>Hi there!</p>
-        <p>It works!</p>
-    </body>
+<head>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <title>KDD Inventory</title>
+</head>
+<body>
+<div>
+            <h1><a href="/">KDD Inventory</a></h1>
+</div>
+
+
+ Welcome to KDD Inventory
+    {% if user.is_authenticated %}
+        <p align="right">Welcome {{ user.username  }}</p>
+        <p>You should only see this if you are logged in</p>
+        <p align="right"><a href="{% url 'logout' %}">logout</a></p>
+    {% endif %}
+
+
+    {% if not user.is_authenticated %}
+        <A HREF = "login">Login here</A>
+    {% endif %}
+
+
+    {% if user.is_authenticated %}
+        <p align="right"><a href="{% url 'home' %}">Inventory</a></p>
+    {%  endif %}
+
+
+
+
+</body>
 </html>
+{%  endblock %}

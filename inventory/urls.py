@@ -7,6 +7,7 @@ admin.autodiscover()
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('simple_upload/', views.simple_upload, name='simple_upload'),
 ]
 
 normalpatterns = [

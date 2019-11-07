@@ -5,13 +5,13 @@ from django.db import models
 
 class Item(models.Model):
     description = models.CharField(max_length=200)
-    cost_per_item = models.IntegerField()
+    cost_per_item = models.IntegerField(default=0)
     item_discontinued = models.BooleanField(default=False)
     name = models.CharField(max_length=200)
 
 
 class Vendor(models.Model):
-    description = models.CharField(max_length=200)
+    description = models.CharField(max_length=200, null=True)
 
 
 class Order(models.Model):
@@ -25,15 +25,14 @@ class Location(models.Model):
     description = models.CharField(max_length=200)
 
 
-class Categories(models.Model):
-    categories = models.CharField(max_length=200)
+class Category(models.Model):
+    category = models.CharField(max_length=200)
 
 
 class StockControl(models.Model):
     item_number = models.ForeignKey(Item, on_delete=models.CASCADE)
     stock_location = models.ForeignKey(Location, on_delete=models.CASCADE)
     stock_quantity = models.IntegerField()
-    stock_category = models.ForeignKey(Categories, on_delete=models.CASCADE)
-    total_value = models.IntegerField()
+    stock_category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
 

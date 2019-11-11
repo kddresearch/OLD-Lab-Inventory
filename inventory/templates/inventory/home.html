@@ -18,6 +18,27 @@
     {% if user.is_authenticated %}
         <p align="right">Welcome {{ user.username  }}</p>
         <p>You should only see this if you are logged in</p>
+
+        <table class="table">
+        <tr>
+            <th>Item Name</th>
+            <th>Item Description</th>
+            <th>Location</th>
+            <th>Quantity</th>
+            <th>Category</th>
+        </tr>
+        {% for item in query_results %}
+        <tr>
+            <td>{{ item.item_number.name }}</td>
+            <td>{{ item.item_number.description}}</td>
+            <td>{{ item.stock_location.description }}</td>
+            <td>{{ item.stock_quantity }}</td>
+            <td>{{ item.stock_category.category }}</td>
+        </tr>
+        {% endfor %}
+        </table>
+
+
         <p align="right"><a href="{% url 'logout' %}">logout</a></p>
     {% endif %}
 

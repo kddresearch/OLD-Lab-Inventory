@@ -13,7 +13,8 @@ import pandas as pd
 
 
 def home(request):
-    return render(request, 'inventory/home.html', {})
+    stock = StockControl.objects.all()
+    return render(request, 'inventory/home.html', {'query_results': stock})
 
 
 def logout_view(request):

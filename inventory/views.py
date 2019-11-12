@@ -17,6 +17,10 @@ def home(request):
     return render(request, 'inventory/home.html', {'query_results': stock})
 
 
+def orders(request):
+    order = Order.objects.all()
+    return render(request, 'inventory/orders.html', {'query_results': order})
+
 def logout_view(request):
     logout(request)
     return redirect('/')

@@ -1,0 +1,31 @@
+{% extends 'inventory/base.html' %}
+{% load static %}
+{% block content %}
+    <form id="form-inline" data-abide="ajax" action="{% url 'item' %}" method="POST">
+    {% csrf_token %}
+    <fieldset id="new_order">
+    <h1> Choose the following options for adding a new item</h1>
+<div class="column large-8">
+
+    <h1>Enter a item description (string) </h1>
+           <input type="text" name="description" value="">
+
+     <h1>Enter a cost per item (integer) </h1>
+           <input type="text" name="cost" value="">
+
+     <h1>Enter if item is discontinued (True/False) </h1>
+           <input type="text" name="discontinued" value="">
+
+    <h1>Enter item name (string) </h1>
+           <input type="text" name="name" value="">
+
+        <div class="row">
+            <button type="submit" id="add-item-button" class="button success">
+                Add Item
+            </button>
+            </div>
+
+  </div>
+    </fieldset>
+</form>
+{%  endblock %}

@@ -4,6 +4,7 @@ from django.contrib.auth import login as auth_login, authenticate
 from django.shortcuts import redirect
 from django.contrib.auth import logout
 from django.http import HttpResponseRedirect
+from django.views.decorators.csrf import csrf_exempt
 import math
 from .models import Item, Vendor, Order, Location, Category, StockControl
 
@@ -16,10 +17,87 @@ def home(request):
     stock = StockControl.objects.all()
     return render(request, 'inventory/home.html', {'query_results': stock})
 
+@csrf_exempt
+def item(request):
+    if request.method == 'POST':
+        description = request.POST.get('description')
+        cost_per_item = request.POST.get('cost');
+        cur = request.POST.get('reorder')
+        if cur == "False":
+            discontinued = False
+        else:
+            discontinued = True
+        name = request.POST.get('name')
+        Item.objects.create(description=description, cost_per_item=cost_per_item, item_discontinued=discontinued, name=name )
+        # return redirect(request, 'inventory/orders.html')
+    item = Item.objects.all()
+    return render(request, 'inventory/item.html', {'query_results': item})
 
+@csrf_exempt
+def vendor(request):
+    if request.method == 'POST':
+        description = request.POST.get('description')
+        Vendor.objects.create(description=description)
+        # return redirect(request, 'inventory/orders.html')
+    vendor = Vendor.objects.all()
+    return render(request, 'inventory/vendor.html', {'query_results': vendor})
+
+@csrf_exempt
+def new_vendor(request):
+    return render(request, 'inventory/new_vendor.html', {})
+
+@csrf_exempt
+def location(request):
+    if request.method == 'POST':
+        description = request.POST.get('description')
+        Location.objects.create(description=description)
+        # return redirect(request, 'inventory/orders.html')
+    location = Location.objects.all()
+    return render(request, 'inventory/location.html', {'query_results': location})
+
+@csrf_exempt
+def new_location(request):
+    return render(request, 'inventory/new_location.html', {})
+
+
+@csrf_exempt
+def category(request):
+    if request.method == 'POST':
+        category = request.POST.get('description')
+        Category.objects.create(category=category)
+        # return redirect(request, 'inventory/orders.html')
+    category = Category.objects.all()
+    return render(request, 'inventory/category.html', {'query_results': category})
+
+@csrf_exempt
+def new_category(request):
+    return render(request, 'inventory/new_category.html', {})
+
+
+@csrf_exempt
 def orders(request):
+    if request.method == 'POST':
+        selected_vendor = request.POST.get('vendor')
+        current_vendor = Vendor.objects.get(description=selected_vendor)
+        selected_item = request.POST.get('item');
+        current_item = Item.objects.get(name=selected_item)
+        selected_reorder = request.POST.get('reorder')
+        Order.objects.create(reorder=selected_reorder, item=current_item, vendor=current_vendor)
+        # return redirect(request, 'inventory/orders.html')
     order = Order.objects.all()
     return render(request, 'inventory/orders.html', {'query_results': order})
+
+@csrf_exempt
+def new_order(request):
+    items = Item.objects.all()
+    vendors = Vendor.objects.all()
+    return render(request, 'inventory/new_order.html', {'items': items, 'vendors': vendors})
+
+
+@csrf_exempt
+def new_item(request):
+    return render(request, 'inventory/new_item.html', {})
+
 
 def logout_view(request):
     logout(request)

@@ -50,6 +50,23 @@
         <p align="right"><a href="{% url 'orders' %}">Orders</a></p>
     {%  endif %}
 
+ {% if user.is_authenticated %}
+        <p align="right"><a href="{% url 'item' %}">Items</a></p>
+    {%  endif %}
+
+ {% if user.is_authenticated %}
+        <p align="right"><a href="{% url 'vendor' %}">Vendors</a></p>
+    {%  endif %}
+
+ {% if user.is_authenticated %}
+        <p align="right"><a href="{% url 'location' %}">Locations</a></p>
+    {%  endif %}
+
+ {% if user.is_authenticated %}
+        <p align="right"><a href="{% url 'category' %}">Categories</a></p>
+    {%  endif %}
+
+
 
 
 

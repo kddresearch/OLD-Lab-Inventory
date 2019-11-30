@@ -1,0 +1,22 @@
+{% extends 'inventory/base.html' %}
+{% load static %}
+{% block content %}
+    <form id="form-inline" data-abide="ajax" action="{% url 'vendor' %}" method="POST">
+    {% csrf_token %}
+    <fieldset id="new_order">
+    <h1> Choose the following options for adding a new vendor</h1>
+<div class="column large-8">
+
+    <h1>Enter a vendor description (string) </h1>
+           <input type="text" name="description" value="">
+
+        <div class="row">
+            <button type="submit" id="add-item-button" class="button success">
+                Add Vendor
+            </button>
+            </div>
+
+  </div>
+    </fieldset>
+</form>
+{%  endblock %}

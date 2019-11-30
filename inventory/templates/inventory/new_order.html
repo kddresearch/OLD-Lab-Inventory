@@ -1,10 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'inventory/base.html' %}
+{% load static %}
+{% block content %}
+    <form id="form-inline" data-abide="ajax" action="{% url 'orders' %}" method="POST">
+    {% csrf_token %}
+    <fieldset id="new_order">
+    <h1> Choose the following options for creating a new order</h1>
+<div class="column large-8">
+            <div class="row">
+             <h1> Select an Item first</h1>
+            <select name="item" id="item_select" class="large-4 column">
+                </option>
+                {% for item in items %}
+                <option value="{{ item.name }}">{{ item.name }}</option>
+                {% endfor %}
+            </select>
+            </div>
+                    <h1>Select a Vendor second</h1>
+               <div class="row">
+            <select name="vendor" id="vendor_select" class="large-4 column">
+                </option>
+                {% for vendor in vendors %}
+                <option value="{{ vendor.description }}">{{ vendor.description }}</option>
+                {% endfor %}
+            </select>
+            </div>
+                   <h1>Enter a reorder amount second (integer only)</h1>
 
-</body>
-</html>
+           <input type="text" name="reorder" value="">
+
+        <div class="row">
+            <button type="submit" id="add-order-button" class="button success">
+                Add Order
+            </button>
+            </div>
+
+  </div>
+    </fieldset>
+</form>
+{%  endblock %}

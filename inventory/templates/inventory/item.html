@@ -1,37 +1,39 @@
 {% extends 'inventory/base.html' %}
 {% load static %}
 {% block content %}
+<html>
 <body>
 <div>
             <h1><a href="/">KDD Inventory</a></h1>
 </div>
 
 
- Welcome to KDD Inventory - ORDERS
+ Welcome to KDD Inventory
     {% if user.is_authenticated %}
         <p align="right">Welcome {{ user.username  }}</p>
         <p>You should only see this if you are logged in</p>
 
         <table class="table">
         <tr>
-            <th>Reorder</th>
             <th>Item Name</th>
-            <th>Vendor</th>
-            <th>Date</th>
+            <th>Item Description</th>
+            <th>Cost Per ITem</th>
+            <th>Discontinued</th>
         </tr>
-        {% for order in query_results %}
+        {% for item in query_results %}
         <tr>
-            <td>{{ order.reorder }}</td>
-            <td>{{ order.item.name }}</td>
-            <td>{{ order.vendor.description }}</td>
-            <td>{{ order.date }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.description}}</td>
+            <td>{{ item.cost_per_item }}</td>
+            <td>{{ item.item_disccontinued }}</td>
         </tr>
         {% endfor %}
         </table>
 
 
         <p align="right"><a href="{% url 'logout' %}">Logout</a></p>
-     {% endif %}
+    {% endif %}
+
 
     {% if not user.is_authenticated %}
         <A HREF = "login">Login here</A>
@@ -47,11 +49,14 @@
     {%  endif %}
 
  {% if user.is_authenticated %}
-        <p align="right"><a href="{% url 'new_order' %}">New Order</a></p>
-    {%  endif %}
-{% if user.is_authenticated %}
         <p align="right"><a href="{% url 'item' %}">Items</a></p>
     {%  endif %}
 
+{% if user.is_authenticated %}
+        <p align="right"><a href="{% url 'new_item' %}">New Item</a></p>
+    {%  endif %}
 
+
+</body>
+</html>
 {%  endblock %}
